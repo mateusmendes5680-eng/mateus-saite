@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Oficial | Loja & Serviços</title>
+    <style>
+        /* =========================================================
+           CONFIGURAÇÕES DE CORES E ESTILO TECNOLÓGICO
+           ========================================================= */
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #131a2a;
+            --bg-card-hover: #1a2338;
+            --primary: #00d2ff;
+            --primary-glow: rgba(0, 210, 255, 0.25);
+            --whatsapp: #25d366;
+            --whatsapp-hover: #1ebe5d;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           CABEÇALHO (HEADER)
+           ========================================================= */
+        header {
+            background: rgba(11, 15, 25, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .header-btn {
+            background-color: var(--whatsapp);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-btn:hover {
+            background-color: var(--whatsapp-hover);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================================
+           BANNER OPCIONAL (TROCÁVEL FACILMENTE)
+           ========================================================= */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            min-height: 360px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #091e2c 100%);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Camada escura para garantir leitura caso você coloque uma foto no banner */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 15, 25, 0.65);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 750px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .hero-cta {
+            background: var(--primary);
+            color: #0b0f19;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 0 20px var(--primary-glow);
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .hero-cta:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        /* =========================================================
+           CATÁLOGO DE PRODUTOS
+           ========================================================= */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .search-box {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+            width: 280px;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            background: #1e293b;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .btn-buy-wpp {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--whatsapp);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-buy-wpp:hover {
+            background-color: var(--whatsapp-hover);
+        }
+
+        /* =========================================================
+           BOTÃO FLUTUANTE DO WHATSAPP
+           ========================================================= */
+        .floating-wpp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--whatsapp);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            z-index: 999;
+            transition: 0.3s;
+        }
+
+        .floating-wpp:hover {
+            transform: scale(1.1);
+        }
+
+        /* =========================================================
+           RODAPÉ
+           ========================================================= */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .hero-content h1 { font-size: 1.8rem; }
+            .search-box { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo" id="nome-loja">TECNO<span>STORE</span></div>
+        <a href="#" id="btn-wpp-topo" target="_blank" class="header-btn">
+            💬 Falar no WhatsApp
+        </a>
+    </header>
+
+    <!-- BANNER PRINCIPAL (PODE SER ATIVADO/DESATIVADO OU TROCADO NO SCRIPT ABAIXO) -->
+    <section class="hero-banner" id="banner-principal">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 id="banner-titulo">Produtos Exclusivos & Sob Encomenda</h1>
+            <p id="banner-subtitulo">Escolha o item desejado no catálogo abaixo e finalize seu pedido diretamente pelo WhatsApp com atendimento rápido.</p>
+            <a href="#catalogo" class="hero-cta">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DO CATÁLOGO -->
+    <main class="container" id="catalogo">
+        <div class="section-header">
+            <h2>Nossos Produtos</h2>
+            <input type="text" id="campo-busca" class="search-box" placeholder="🔍 Buscar produto...">
+        </div>
+
+        <div class="products-grid" id="lista-produtos">
+            <!-- Os produtos serão carregados automaticamente via JavaScript -->
+        </div>
+    </main>
+
+    <!-- BOTÃO FLUTUANTE WHATSAPP -->
+    <a href="#" id="btn-wpp-flutuante" target="_blank" class="floating-wpp" title="Chamar no WhatsApp">
+        💬
+    </a>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p id="texto-rodape">© 2026 TecnoStore - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- =========================================================
+         PAINEL DE CONFIGURAÇÃO FÁCIL (EDITE AQUI!)
+         ========================================================= -->
+    <script>
+        const CONFIG_SITE = {
+            // 1. SEU NÚMERO DE WHATSAPP (Apenas números com DDI 55 + DDD)
+            whatsappNumero: "5527995821583",
+            mensagemPadraoTopo: "Olá! Vim pelo site e gostaria de tirar uma dúvida.",
+
+            // 2. CONFIGURAÇÃO DO BANNER (Opcional e fácil de trocar)
+            bannerAtivo: true, // Mude para false se quiser esconder o banner
+            bannerImagemURL: "", // Cole aqui o link de uma imagem ou caminho local (ex: "banner.jpg"). Deixe vazio "" para usar o fundo tecnológico padrão.
+            bannerTitulo: "Soluções Tecnológicas & Peças Personalizadas",
+            bannerSubtitulo: "Qualidade, precisão e envio rápido. Clique em comprar para pedir direto pelo WhatsApp.",
+
+            // 3. SEUS PRODUTOS (Adicione, remova ou edite à vontade)
+            produtos: [
+                {
+                    nome: "Suporte Personalizado 3D",
+                    categoria: "Impressão 3D",
+                    descricao: "Peça fabricada em material de alta resistência com acabamento fino e encaixe sob medida.",
+                    preco: "R$ 45,00",
+                    imagem: "https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    nome: "Acessório Automotivo Custom",
+                    categoria: "Automotivo",
+                    descricao: "Suporte reforçado resistente ao calor interno do veículo, ideal para painéis e consoles.",
+                    preco: "R$ 59,90",
+                    imagem: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    nome: "Organizador de Setup / Mesa",
+                    categoria: "Setup & PC",
+                    descricao: "Mantenha cabos, controles e acessórios organizados com design moderno e funcional.",
+                    preco: "R$ 35,00",
+                    imagem: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    nome: "Projeto Sob Encomenda",
+                    categoria: "Personalizado",
+                    descricao: "Tem uma ideia ou precisa de uma peça específica? Fazemos a modelagem e produção para você.",
+                    preco: "Sob Consulta",
+                    imagem: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=600&q=80"
+                }
+            ]
+        };
+
+        // =========================================================
+        // LÓGICA DO SISTEMA (NÃO PRECISA MEXER ABAIXO)
+        // =========================================================
+        document.addEventListener("DOMContentLoaded", () => {
+            // Configurar links gerais de WhatsApp
+            const linkWppGeral = `https://wa.me/${CONFIG_SITE.whatsappNumero}?text=${encodeURIComponent(CONFIG_SITE.mensagemPadraoTopo)}`;
+            document.getElementById("btn-wpp-topo").href = linkWppGeral;
+            document.getElementById("btn-wpp-flutuante").href = linkWppGeral;
+
+            // Configurar Banner
+            const bannerEl = document.getElementById("banner-principal");
+            if (!CONFIG_SITE.bannerAtivo) {
+                bannerEl.style.display = "none";
+            } else {
+                document.getElementById("banner-titulo").innerText = CONFIG_SITE.bannerTitulo;
+                document.getElementById("banner-subtitulo").innerText = CONFIG_SITE.bannerSubtitulo;
+                if (CONFIG_SITE.bannerImagemURL.trim() !== "") {
+                    bannerEl.style.backgroundImage = `url('${CONFIG_SITE.bannerImagemURL}')`;
+                }
+            }
+
+            // Renderizar Produtos
+            const grid = document.getElementById("lista-produtos");
+            function renderizarProdutos(filtro = "") {
+                grid.innerHTML = "";
+                const filtrados = CONFIG_SITE.produtos.filter(p =>
+                    p.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+                    p.categoria.toLowerCase().includes(filtro.toLowerCase()) ||
+                    p.descricao.toLowerCase().includes(filtro.toLowerCase())
+                );
+
+                filtrados.forEach(prod => {
+                    const textoPedido = `Olá! Tenho interesse no produto: *${prod.nome}* (${prod.preco}). Poderia me passar mais detalhes?`;
+                    const linkCompra = `https://wa.me/${CONFIG_SITE.whatsappNumero}?text=${encodeURIComponent(textoPedido)}`;
+
+                    const card = `
+                        <div class="product-card">
+                            <img src="${prod.imagem}" alt="${prod.nome}" class="product-img">
+                            <div class="product-info">
+                                <span class="product-tag">${prod.categoria}</span>
+                                <h3 class="product-title">${prod.nome}</h3>
+                                <p class="product-desc">${prod.descricao}</p>
+                                <div class="product-price">${prod.preco}</div>
+                                <a href="${linkCompra}" target="_blank" class="btn-buy-wpp">
+                                    🛒 Comprar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+            }
+
+            renderizarProdutos();
+
+            // Barra de pesquisa em tempo real
+            document.getElementById("campo-busca").addEventListener("input", (e) => {
+                renderizarProdutos(e.target.value);
+            });
+        });
+    </script>
+</body>
+</html>
